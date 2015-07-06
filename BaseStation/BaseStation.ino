@@ -1,6 +1,6 @@
-#include "C:\Users\sfowers\OneDrive\Documents\Side Projects\Arduino\FowieMow\Shared\LogOutput.h";
-#include "C:\Users\sfowers\OneDrive\Documents\Side Projects\Arduino\FowieMow\Shared\GPSData.h";
-#include "C:\Users\sfowers\OneDrive\Documents\Side Projects\Arduino\FowieMow\Shared\DFRobotGPS.h";
+#include "LogOutput.h";
+#include "GPSData.h";
+#include "DFRobotGPS.h";
 #include <SoftwareSerial.h>
 
 // Spark is on SoftwareSerial

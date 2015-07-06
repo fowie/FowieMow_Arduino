@@ -154,3 +154,8 @@ $RECYCLE.BIN/
 
 # Mac desktop service store files
 .DS_Store
+BaseStation/Visual Micro/Compile.vmps.xml
+BaseStation/Visual Micro/Configuration.Debug.vmps.xml
+BrainStem/Visual Micro/Compile.vmps.xml
+BaseStation/Visual Micro/Compile.vmps.xml
+BrainStem/Visual Micro/.BrainStem.vsarduino.h

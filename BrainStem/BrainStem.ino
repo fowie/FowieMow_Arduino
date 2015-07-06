@@ -7,9 +7,9 @@
 //Step 6: Wait for LEDs Stat and Network OFF, PWR On Red
 //Step 7: Open Arduino Monitor Serial and Press RST Board
 #include <Time.h>
-#include "C:\Users\sfowers\OneDrive\Documents\Side Projects\Arduino\FowieMow\Shared\LogOutput.h"
-#include "C:\Users\sfowers\OneDrive\Documents\Side Projects\Arduino\FowieMow\Shared\GPSData.h"
-#include "C:\Users\sfowers\OneDrive\Documents\Side Projects\Arduino\FowieMow\Shared\DFRobotGPS.h"
+#include "LogOutput.h"
+#include "GPSData.h"
+#include "DFRobotGPS.h"
 
 /*** GLOBAL VARIABLES ***/
 float CurrentVoltage;
