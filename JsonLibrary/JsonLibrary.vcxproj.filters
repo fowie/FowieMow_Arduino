@@ -15,31 +15,11 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="BaseStation.ino" />
+    <None Include="JsonLibrary.ino" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Visual Micro\.BaseStation.vsarduino.h">
+    <ClInclude Include="__vm\.JsonLibrary.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DFRobotGPS.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GPSData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LogOutput.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="__vm\.BaseStation.vsarduino.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="DFRobotGPS.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
-    <ClCompile Include="LogOutput.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>
