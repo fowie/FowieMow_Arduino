@@ -6,84 +6,114 @@
 //Step 5: Plug the long side of LED into pin 8 and short side into GND
 //Step 6: Wait for LEDs Stat and Network OFF, PWR On Red
 //Step 7: Open Arduino Monitor Serial and Press RST Board
+#include <Encoder.h>
 #include <Time.h>
 #include "LogOutput.h"
-#include "GPSData.h"
-#include "DFRobotGPS.h"
 
 /*** GLOBAL VARIABLES ***/
 float CurrentVoltage;
 float PreviousVoltage;
+#define encoder0PinA  11
+#define encoder0PinB  12
+#define encoder1PinA  9
+#define encoder1PinB  10
+Encoder rightMotorEncoder(encoder0PinA, encoder0PinB);
+Encoder leftMotorEncoder(encoder1PinA, encoder1PinB);
+long rightMotorPosition = -999;
+long leftMotorPosition = -999;
+
+// Actual motor power command values [0,255]?
+unsigned int leftMotor = 0;
+unsigned int rightMotor = 0;
+String* response = new String("");
 
 enum Command
 {
   Move,
+  EncoderQuery,
+  BatteryQuery,
   COUNT  //Must be the last item
 };
 
 /*** MAIN FUNCTIONS ***/
 void setup()
 {
-    Serial.begin(9600);                 //Set Baud Rate
+    Serial.begin(115200);                 //Set Baud Rate
     Serial.println("Starting");
-	GPS_Setup(false);
+	while (Serial.available() > 0) Serial.read();
 }
 
 void loop(){
-  LogOutput("Loop start.");
-  while( Serial.available() > 0) Serial.read();    
-  delay(100);
-  
+  //LogOutput("Loop start.");
+  //delay(100);
+
   ////////////// Battery Monitoring ///////////
   CurrentVoltage = (float)readVcc() / (float)1000;
-  LogOutput((String)"VCC is: "+CurrentVoltage+"V");
-  if(CurrentVoltage != PreviousVoltage)
-    LogData((String)CurrentVoltage, BatteryDataType);
+  //if(CurrentVoltage != PreviousVoltage)
+  //	  Serial.println((String)"~~BATT~~" + CurrentVoltage);
   PreviousVoltage = CurrentVoltage;
-
-  ////////////// GPS /////////////////////
-  if(GPS_Lock())
-  {
-    String response = "";
-    sendATcommand("AT+CGPSINF=32", "OK", 1000, &response);
-    LogData(response.substring(response.indexOf('32,')+1), GPSDataType);
-    ParseGPRMC(response);
+   
+  // Read encoders
+  long newLeft, newRight;
+  newLeft = leftMotorEncoder.read();
+  newRight = rightMotorEncoder.read();
+  if (newLeft != leftMotorPosition || newRight != rightMotorPosition) {
+	  //Serial.println((String)"~~ENC~~" + newLeft + "|" + newRight);
+	  leftMotorPosition = newLeft;
+	  rightMotorPosition = newRight;
   }
-  
-  // Do other work here
+
   WaitForCommand();
 }
 
 /* Waits for 500ms to receive a command and processes it if received */
 void WaitForCommand()
 {
-  LogOutput("Waiting for command");
-  String commandLine = "";
-
   int answer = 0;
-  // Turn off GSM and GPS UART
-  digitalWrite(3, HIGH);
-  digitalWrite(4, HIGH);
-  answer = sendATcommand("~~RDY~~,", ":CMDEND", 1000, &commandLine);
-  // Turn GSM UART back on
-  digitalWrite(3, LOW);
-  digitalWrite(4, HIGH);
 
-  LogOutput("GOt here");
+  while (Serial.available() > 0)
+	*response += (char)Serial.read();
+
+	// check if the desired answer is in the response of the module
+	if (response->lastIndexOf(":CMDEND:") != -1)
+	{
+		answer = 1;
+	}
+
   if(answer <= 0)    
   {
+	// Not valid (yet), return to do other work 
+	// maybe next time I come back I can finish the command
+	// Serial.println((String)"Not valid, got" + *response);
     return;
   }
   //LogOutput((String)"Got Command Line: "+commandLine);   
-  LogOutput((String)"Command: "+commandLine.substring(4,6));
+  //Serial.println((String)"Command: "+response->substring(4,6));
   // Get the command value
-  int cmdInt = commandLine.substring(4,6).toInt();
-  LogOutput((String)"Command: "+(String)cmdInt);
-  
+  int cmdInt = response->substring(4,6).toInt();
+  Serial.println((String)"Command: "+(String)cmdInt);
+  response = new String("");
+
   if((Command)cmdInt < COUNT)
   {
-    LogOutput((String)"Got valid command: "+commandLine.substring(6));
-    LogData((String)"", CommandAckType); 
+    //Serial.println((String)"Got valid command: "+response->substring(6));
+	switch (cmdInt)
+	{
+	case Move:
+		// Set motor commands 
+		
+		// echo back values
+		Serial.println((String)"~~MOVE~~" + leftMotor + "|" + rightMotor);
+		break;
+	case EncoderQuery:
+		// return encoder values
+		Serial.println((String)"~~ENC~~" + leftMotorPosition + "|" + rightMotorPosition);
+		break;
+	case BatteryQuery:
+		// return battery value
+		Serial.println((String)"~~BATT~~" + CurrentVoltage);
+		break;
+	}
   }
 }
 

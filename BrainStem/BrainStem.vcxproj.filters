@@ -21,25 +21,8 @@
     <ClInclude Include="Visual Micro\.BrainStem.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DFRobotGPS.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GPSData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LogOutput.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="__vm\.BrainStem.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="DFRobotGPS.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="LogOutput.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>
