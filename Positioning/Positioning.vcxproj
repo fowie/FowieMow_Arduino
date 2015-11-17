@@ -13,7 +13,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C8C234A8-0BFB-4B75-8050-94B14C84FE77}</ProjectGuid>
     <RootNamespace>BaseStation</RootNamespace>
-    <ProjectName>BaseStation</ProjectName>
+    <ProjectName>Positioning</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -74,7 +74,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="BaseStation.ino">
+    <None Include="Positioning.ino">
       <FileType>CppCode</FileType>
     </None>
   </ItemGroup>

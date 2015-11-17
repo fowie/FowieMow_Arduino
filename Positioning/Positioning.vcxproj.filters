@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="BaseStation.ino" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="Visual Micro\.BaseStation.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -41,5 +38,8 @@
     <ClCompile Include="LogOutput.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Positioning.ino" />
   </ItemGroup>
 </Project>
